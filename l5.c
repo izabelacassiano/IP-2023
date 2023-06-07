@@ -1,5 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -60,6 +58,35 @@ int calculaFatorial(int numFatorial) {
     return numFatorial;
 }
 
+int calcElemeTriPascal(int linha, int coluna) {
+    if (coluna == 0 || coluna == linha) {
+        return 1;
+    }
+    else {
+        return calcElemeTriPascal(linha - 1, coluna - 1) + calcElemeTriPascal(linha - 1, coluna);
+    }
+}
+
+void TrianguloPascal(int altura) {
+    if (altura < 1 || altura > 10) {
+        printf("Para o triangulo de pascal insira apenas numeros de 1 a 10, tente novamente!\n");
+        return;
+    }
+
+    printf("Triangulo de Pascal com altura %d:\n", altura);
+
+    for (int linha = 0; linha < altura; linha++) {
+        for (int espacos = 0; espacos < altura - linha - 1; espacos++) {
+            printf(" ");
+        }
+
+        for (int coluna = 0; coluna <= linha; coluna++) {
+            printf("%d ", calcElemeTriPascal(linha, coluna));
+        }
+        printf("\n");
+    }
+}
+
 void notasAluno(float* nota1, float* nota2, float* nota3, float* mediaNotasAlunos) {
     printf("\nDigite a nota 1:");
     scanf("%f", nota1);
@@ -104,6 +131,14 @@ void nAlunos(int* quantidadeAlunos, int* alunosAprovados, int* alunosReprovados)
     printf("\nAlunos Reprovados: %i", *alunosReprovados);
     printf("\nPercentual de aprovacao da turma: %.2f%%", (*alunosAprovados * 100.0) / *quantidadeAlunos);
 }
+  int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+
 
 int main(int argc, char** argv) {
     int ano, dias, meses;
@@ -113,6 +148,8 @@ int main(int argc, char** argv) {
     int quantidadeAlunos = 0, alunosAprovados = 0, alunosReprovados = 0;
     int numFatorial;
     int n1;
+    int n, i;
+    int altura;
     float n1Soma, n2Soma;
     float n1Produto, n2Produto;
     float n1Quociente, n2Quociente;
@@ -209,11 +246,28 @@ int main(int argc, char** argv) {
             scanf("%i", &numFatorial);
             calculaFatorial(numFatorial);
             break;
-
+        case 6:
+            printf("\nDigite a altura do triangulo de Pascal desejado:");
+            printf("\nATENCAO: Esse programa aceita apenas altura de 1 a 10.");
+            scanf("%d", &altura);
+          
+            TrianguloPascal(altura);
+            break;
+                
         case 7:
             nAlunos(&quantidadeAlunos, &alunosAprovados, &alunosReprovados);
             break;
 
+        case 8:
+            printf("Digite o numero de termos da serie de Fibonacci: ");
+            scanf("%d", &n);
+
+            printf("\nSerie de Fibonacci com %d termos:", n);
+            for (i = 1; i <= n; i++) {
+                printf("%d ", fibonacci(i));
+    }
+
+            break;
         case 0:
             opcaoExercicio = 0;
             break;
@@ -221,7 +275,14 @@ int main(int argc, char** argv) {
         default:
             printf("Escolha uma opcao de 1 a 8.");
             break;
+        
         }
+    
     } while (opcaoExercicio != 0);
-    return SUCESSO;
+    
+     return SUCESSO;
 }
+
+
+
+
