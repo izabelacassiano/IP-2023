@@ -4,7 +4,6 @@
 #define max_curso 20
 #define max_notas 3
 
-// Questao 1
 typedef struct Aluno
 {
     int matricula;
